@@ -1,4 +1,4 @@
-package com.learn.h2Demo;
+package com.learn.h2MultipleDataSources;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,10 +10,10 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @EnableSwagger2
 @EnableWebMvc
-public class H2DemoApplication extends WebMvcConfigurerAdapter {
+public class H2MultipleDataSourcesApplication extends WebMvcConfigurerAdapter {
 
 	public static void main(String[] args) {
-		SpringApplication.run(H2DemoApplication.class, args);
+		SpringApplication.run(H2MultipleDataSourcesApplication.class, args);
 	}
 
 	@Override

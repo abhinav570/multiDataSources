@@ -1,6 +1,6 @@
-package com.learn.h2Demo.Repo.secondary;
+package com.learn.h2MultipleDataSources.Repo.secondary;
 
-import com.learn.h2Demo.entity.secondary.EmployeeEntitySecondary;
+import com.learn.h2MultipleDataSources.entity.secondary.EmployeeEntitySecondary;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

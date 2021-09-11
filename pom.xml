@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.learn</groupId>
-	<artifactId>h2Demo</artifactId>
+	<artifactId>multipleH2DataSources</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>h2Demo</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Demo project for Spring Boot multiple data-sources</description>
 	<properties>
 		<java.version>1.8</java.version>
 	</properties>

@@ -1,4 +1,4 @@
-package com.learn.h2Demo.entity.primary;
+package com.learn.h2MultipleDataSources.entity.primary;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

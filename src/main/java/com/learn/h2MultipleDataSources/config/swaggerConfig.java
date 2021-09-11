@@ -1,4 +1,4 @@
-package com.learn.h2Demo.config;
+package com.learn.h2MultipleDataSources.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

@@ -1,4 +1,4 @@
-package com.learn.h2Demo.entity.secondary;
+package com.learn.h2MultipleDataSources.entity.secondary;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -8,8 +8,8 @@ import javax.persistence.*;
 @Data
 @Entity
 @NoArgsConstructor
-@Table(name="TBL_EMPLOYEES")
-public class EmployeeEntitySecondary {
+@Table(name="TBL_STUDENTS")
+public class StudentEntity {
 
 
     @Id
@@ -25,7 +25,7 @@ public class EmployeeEntitySecondary {
     @Column(name = "lname")
     private String lastName;
 
-    public EmployeeEntitySecondary(String email, String firstName, String lastName) {
+    public StudentEntity(String email, String firstName, String lastName) {
         this.email = email;
         this.firstName = firstName;
         this.lastName = lastName;

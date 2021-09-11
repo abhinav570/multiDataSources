@@ -1,7 +1,8 @@
-package com.learn.h2Demo.config;
+package com.learn.h2MultipleDataSources.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -24,17 +25,38 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "primaryEntityManagerFactory",
         transactionManagerRef = "primaryTransactionManager",
-        basePackages = {"com.learn.h2Demo.Repo.primary"})
+        basePackages = {"com.learn.h2MultipleDataSources.Repo.primary"})
 public class PrimaryDataSourceConfiguration {
+
+    @Value("${spring.datasource.primary.username}")
+    String username;
+
+    @Value("${spring.datasource.primary.password}")
+    String password;
+
+    @Value("${spring.datasource.primary.url}")
+    String url;
+
+    @Value("${hibernate.hbm2ddl.primary.auto}")
+    String hbm2ddl;
+
+    @Value("${org.hibernate.dialect.primary.H2Dialect}")
+    String dialect;
+
+    @Value("${primary.entity.package}")
+    String entityPackage;
+
+    @Value("${primary.entity.package}")
+    String repoPackage;
 
     @Primary
     @Bean(name = "primaryDataSourceProperties")
     @ConfigurationProperties("spring.datasource-primary")
     public DataSourceProperties primaryDataSourceProperties() {
         DataSourceProperties dataSourceProperties=new DataSourceProperties();
-        dataSourceProperties.setUrl("jdbc:h2:mem:h1");
-        dataSourceProperties.setUsername("sa");
-        dataSourceProperties.setPassword("sa");
+        dataSourceProperties.setUrl(url);
+        dataSourceProperties.setUsername(username);
+        dataSourceProperties.setPassword(password);
         return dataSourceProperties;
     }
 
@@ -51,12 +73,12 @@ public class PrimaryDataSourceConfiguration {
             EntityManagerFactoryBuilder primaryEntityManagerFactoryBuilder, @Qualifier("primaryDataSource") DataSource primaryDataSource) {
 
         Map<String, String> primaryJpaProperties = new HashMap<>();
-        primaryJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        primaryJpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        primaryJpaProperties.put("hibernate.dialect", dialect);
+        primaryJpaProperties.put("hibernate.hbm2ddl.auto", hbm2ddl);
 
         return primaryEntityManagerFactoryBuilder
                 .dataSource(primaryDataSource)
-                .packages("com.learn.h2Demo.entity.primary")
+                .packages(entityPackage)
                 .persistenceUnit("primaryDataSource")
                 .properties(primaryJpaProperties)
                 .build();

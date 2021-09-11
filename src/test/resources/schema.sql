@@ -1,6 +1,6 @@
 
 
-create table ABCDXXX (
+create table ABCD (
 id integer ,
 email varchar2(50),
 fname varchar2(50),

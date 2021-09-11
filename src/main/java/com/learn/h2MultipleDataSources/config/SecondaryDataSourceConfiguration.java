@@ -1,7 +1,8 @@
-package com.learn.h2Demo.config;
+package com.learn.h2MultipleDataSources.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceProperties;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.orm.jpa.EntityManagerFactoryBuilder;
@@ -23,16 +24,37 @@ import java.util.Map;
 @EnableJpaRepositories(
         entityManagerFactoryRef = "secondaryEntityManagerFactory",
         transactionManagerRef = "secondaryTransactionManager",
-        basePackages = {"com.learn.h2Demo.Repo.secondary"})
+        basePackages = {"com.learn.h2MultipleDataSources.Repo.secondary"})
 public class SecondaryDataSourceConfiguration {
+
+    @Value("${spring.datasource.secondary.username}")
+    String username;
+
+    @Value("${spring.datasource.secondary.password}")
+    String password;
+
+    @Value("${spring.datasource.secondary.url}")
+    String url;
+
+    @Value("${hibernate.hbm2ddl.secondary.auto}")
+    String hbm2ddl;
+
+    @Value("${org.hibernate.dialect.secondary.H2Dialect}")
+    String dialect;
+
+    @Value("${secondary.entity.package}")
+    String entityPackage;
+
+    @Value("${secondary.entity.package}")
+    String repoPackage;
 
     @Bean(name = "secondaryDataSourceProperties")
     @ConfigurationProperties("spring.datasource-secondary")
     public DataSourceProperties secondaryDataSourceProperties() {
         DataSourceProperties dataSourceProperties=new DataSourceProperties();
-        dataSourceProperties.setUrl("jdbc:h2:mem:h2");
-        dataSourceProperties.setUsername("sa");
-        dataSourceProperties.setPassword("sa");
+        dataSourceProperties.setUrl(url);
+        dataSourceProperties.setUsername(username);
+        dataSourceProperties.setPassword(password);
         return dataSourceProperties;
     }
 
@@ -47,12 +69,12 @@ public class SecondaryDataSourceConfiguration {
             EntityManagerFactoryBuilder secondaryEntityManagerFactoryBuilder, @Qualifier("secondaryDataSource") DataSource secondaryDataSource) {
 
         Map<String, String> secondaryJpaProperties = new HashMap<>();
-        secondaryJpaProperties.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        secondaryJpaProperties.put("hibernate.hbm2ddl.auto", "create-drop");
+        secondaryJpaProperties.put("hibernate.dialect", dialect);
+        secondaryJpaProperties.put("hibernate.hbm2ddl.auto", hbm2ddl);
 
         return secondaryEntityManagerFactoryBuilder
                 .dataSource(secondaryDataSource)
-                .packages("com.learn.h2Demo.entity.secondary")
+                .packages(entityPackage)
                 .persistenceUnit("secondaryDataSource")
                 .properties(secondaryJpaProperties)
                 .build();

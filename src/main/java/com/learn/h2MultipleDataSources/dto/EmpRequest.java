@@ -1,6 +1,7 @@
-package com.learn.h2Demo.dto;
+package com.learn.h2MultipleDataSources.dto;
 
-public class StudentRequest {
+public class EmpRequest {
+
     private String email;
 
     private String firstName;
